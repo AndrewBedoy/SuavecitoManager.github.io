@@ -27,6 +27,10 @@ export class AppComponent {
     this.opcion = 'Altas';
   }
 
+  bajas(){
+    this.opcion = 'Bajas';
+  }
+
   agregarProducto(): void {
     // Preguntar al cliente si el código es necesario o no; aleatorio o manual
     const producto = {

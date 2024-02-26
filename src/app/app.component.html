@@ -13,7 +13,7 @@
   <nav>
     <ul>
       <li><button (click)="altas()">Altas</button></li>
-      <li><button>Bajas</button></li>
+      <li><button (click)="bajas()">Bajas</button></li>
       <li><button>Cambios</button></li>
       <li><button (click)="mostrarProductos()">Productos</button></li>
     </ul>
@@ -28,7 +28,9 @@
       <button (click)="agregarProducto()">Agregar</button>
     </form>
   </div>
-  
+  <div *ngIf="opcion === 'Bajas'">
+
+  </div>
   <table *ngIf="opcion === 'Productos'">
     <thead *ngIf="productos.length > 0; else noProductos">
       <tr>
