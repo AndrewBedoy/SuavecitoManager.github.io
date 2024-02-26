@@ -5,24 +5,29 @@ body {
     background-color: #f0f0f0;
   }
   
-  header {
-    background-color: #333;
+  .busqueda {
+    background-color: #e86c6c;
     color: #fff;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
+    margin-bottom: 30px;
   }
-  
-  h1 {
-    margin: 0;
+
+  .busqueda h1 {
+    margin-bottom: 15px;
     font-size: 36px;
   }
-  
+
+  .busqueda input {
+    width: 250px;
+  }
+
   input[type="text"] {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     width: 100%;
     box-sizing: border-box;
   }
@@ -36,37 +41,60 @@ body {
   
   nav ul li {
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 0px;
   }
   
   nav ul li button {
-    background-color: #333;
+    background-color: #d30808;
     color: #fff;
+    font-weight: bold;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   
   nav ul li button:hover {
-    background-color: #555;
+    background-color: #f49797;
   }
   
-  h2 {
+  .pestanas {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
   }
   
   form {
     max-width: 400px;
     margin: 0 auto;
   }
+
+  .formulario * {
+    margin-top: 10px;
+  }
+
+  .formulario button{ 
+    background-color: #d30808;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 40px;
+  }
+
+  .formulario button:hover{
+    background-color: #f49797;
+  }
   
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 15px;
   }
   
   table th, table td {
@@ -76,7 +104,7 @@ body {
   }
   
   table th {
-    background-color: #333;
+    background-color: #e86c6c;
     color: #fff;
   }
   
