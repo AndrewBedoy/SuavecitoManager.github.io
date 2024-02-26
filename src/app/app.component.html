@@ -14,7 +14,7 @@
     <ul>
       <li><button (click)="altas()">Altas</button></li>
       <li><button (click)="bajas()">Bajas</button></li>
-      <li><button (click)="cambios()">Cambios</button></li>
+      <li><button (click)="cambios()">Modificar</button></li>
       <li><button (click)="mostrarProductos()">Productos</button></li>
     </ul>
   </nav>
@@ -64,7 +64,7 @@
   </table>
 
   <div *ngIf="opcion === 'DoCambios'">
-    <form>
+    <form class="formulario">
       <input type="text" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" placeholder="Nombre">
   <input type="text" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Descripción">
   <input type="text" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}" placeholder="Precio">
