@@ -31,6 +31,24 @@ export class AppComponent {
     this.opcion = 'Bajas';
   }
 
+  cambios(){
+    this.opcion = 'Cambios';
+  }
+
+  Docambios(producto: any){
+    this.opcion = 'DoCambios';
+    this.productoSeleccionado = producto;
+    this.nombre = producto.nombre;
+    this.descripcion = producto.descripcion;
+    this.precio = producto.precio;
+    this.stock = producto.stock;
+  }
+
+  productoSeleccionado: any;
+
+
+
+
   agregarProducto(): void {
     // Preguntar al cliente si el código es necesario o no; aleatorio o manual
     const producto = {
@@ -51,6 +69,30 @@ export class AppComponent {
     this.precio = 0;
     this.stock = 0;
   }
+
+  
+
+  modificarProducto() {
+    
+    console.log(this.productoSeleccionado.nombre);
+    // Actualiza los valores del producto seleccionado con los nuevos valores del formulario
+    this.productoSeleccionado.nombre = this.nombre;
+    this.productoSeleccionado.descripcion = this.descripcion;
+    this.productoSeleccionado.precio = this.precio;
+    this.productoSeleccionado.stock = this.stock;
+  
+    // Guarda los productos actualizados en el almacenamiento local
+    localStorage.setItem('productos', JSON.stringify(this.productos));
+  
+    // Restablece las variables de formulario y el producto seleccionado
+    this.nombre = '';
+    this.descripcion = '';
+    this.precio = 0;
+    this.stock = 0;
+    this.productoSeleccionado = null;
+  }
+  
+  
 
   mostrarProductos() {
     this.opcion = 'Productos';

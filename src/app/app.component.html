@@ -14,7 +14,7 @@
     <ul>
       <li><button (click)="altas()">Altas</button></li>
       <li><button (click)="bajas()">Bajas</button></li>
-      <li><button>Cambios</button></li>
+      <li><button (click)="cambios()">Cambios</button></li>
       <li><button (click)="mostrarProductos()">Productos</button></li>
     </ul>
   </nav>
@@ -31,6 +31,48 @@
   <div *ngIf="opcion === 'Bajas'">
 
   </div>
+
+  
+
+  <table *ngIf="opcion === 'Cambios'">
+    <thead *ngIf="productos.length > 0; else noProductos">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Código</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.codigo }}</td>
+        <td>   <!-- Agrega un botón o enlace para modificar el producto -->
+          <button (click)="Docambios(producto)">Modificar</button></td>
+      </tr>
+    </tbody>
+    <ng-template #noProductos>
+      <tr>
+        <td colspan="5">No hay productos disponibles.</td>
+      </tr>
+    </ng-template>
+  </table>
+
+  <div *ngIf="opcion === 'DoCambios'">
+    <form>
+      <input type="text" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" placeholder="Nombre">
+  <input type="text" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Descripción">
+  <input type="text" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}" placeholder="Precio">
+  <input type="text" [(ngModel)]="stock" [ngModelOptions]="{standalone: true}" placeholder="Cantidad en stock">
+  <button (click)="modificarProducto()">Guardar cambios</button>
+    </form>
+  </div>
+
   <table *ngIf="opcion === 'Productos'">
     <thead *ngIf="productos.length > 0; else noProductos">
       <tr>
