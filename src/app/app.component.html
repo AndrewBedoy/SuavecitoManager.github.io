@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Suavecito Manager</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 </head>
 <body>
   <header class="busqueda">
     <h1>Suavecito Manager</h1>
-    <input type="text" placeholder="Search...">
+    <input type="text" placeholder="Buscar por nombre o categoría" [(ngModel)]="terminoBusqueda" (input)="actualizarFiltrados()" />
   </header>
   <nav>
     <ul>
@@ -19,26 +20,23 @@
     </ul>
   </nav>
   <h2 class="pestanas">{{opcion}}</h2>
+  
   <div *ngIf="opcion === 'Altas'">
     <form class="formulario">
       <input type="text" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" placeholder="Nombre">
       <input type="text" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Descripción">
-      <input type="text" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}" placeholder="Precio">
-      <input type="text" [(ngModel)]="stock" [ngModelOptions]="{standalone: true}" placeholder="Cantidad en stock">
+      <input type="text" [(ngModel)]="categoria" [ngModelOptions]="{standalone: true}" placeholder="Categoría">
+      <input type="number" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}" placeholder="Precio">
+      <input type="number" [(ngModel)]="stock" [ngModelOptions]="{standalone: true}" placeholder="Cantidad en stock">
       <button (click)="agregarProducto()">Agregar</button>
     </form>
   </div>
-  <div *ngIf="opcion === 'Bajas'">
-
-  </div>
-
-  
-
-  <table *ngIf="opcion === 'Cambios'">
+  <table *ngIf="opcion === 'Bajas'">
     <thead *ngIf="productos.length > 0; else noProductos">
       <tr>
         <th>Nombre</th>
         <th>Descripción</th>
+        <th>Categoría</th>
         <th>Precio</th>
         <th>Stock</th>
         <th>Código</th>
@@ -49,11 +47,13 @@
       <tr *ngFor="let producto of productos">
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.categoria }} </td>
         <td>{{ producto.precio }}</td>
         <td>{{ producto.stock }}</td>
         <td>{{ producto.codigo }}</td>
         <td>   <!-- Agrega un botón o enlace para modificar el producto -->
-          <button (click)="Docambios(producto)">Modificar</button></td>
+          <button (click)="eliminar(producto)">Eliminar</button>
+        </td>
       </tr>
     </tbody>
     <ng-template #noProductos>
@@ -63,10 +63,43 @@
     </ng-template>
   </table>
 
-  <div *ngIf="opcion === 'DoCambios'">
+  <table *ngIf="opcion === 'Cambios'">
+    <thead *ngIf="productos.length > 0; else noProductos">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Código</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.categoria }} </td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.codigo }}</td>
+        <td>   <!-- Agrega un botón o enlace para modificar el producto -->
+          <button (click)="modificar(producto)">Modificar</button>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #noProductos>
+      <tr>
+        <td colspan="5">No hay productos disponibles.</td>
+      </tr>
+    </ng-template>
+  </table>
+
+  <div *ngIf="opcion === 'Modificar'">
     <form class="formulario">
       <input type="text" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" placeholder="Nombre">
   <input type="text" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Descripción">
+  <input type="text" [(ngModel)]="categoria" [ngModelOptions]="{standalone: true}" placeholder="Categoría">
   <input type="text" [(ngModel)]="precio" [ngModelOptions]="{standalone: true}" placeholder="Precio">
   <input type="text" [(ngModel)]="stock" [ngModelOptions]="{standalone: true}" placeholder="Cantidad en stock">
   <button (click)="modificarProducto()">Guardar cambios</button>
@@ -78,6 +111,7 @@
       <tr>
         <th>Nombre</th>
         <th>Descripción</th>
+        <th>Categoría</th>
         <th>Precio</th>
         <th>Stock</th>
         <th>Código</th>
@@ -87,6 +121,35 @@
       <tr *ngFor="let producto of productos">
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.categoria }} </td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.codigo }}</td>
+      </tr>
+    </tbody>
+    <ng-template #noProductos>
+      <tr>
+        <td colspan="5">No hay productos disponibles.</td>
+      </tr>
+    </ng-template>
+  </table>
+
+  <table *ngIf="opcion === 'Buscar'">
+    <thead *ngIf="productosFiltrados.length > 0; else noProductos">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Código</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let producto of productosFiltrados">
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.categoria }} </td>
         <td>{{ producto.precio }}</td>
         <td>{{ producto.stock }}</td>
         <td>{{ producto.codigo }}</td>
@@ -99,6 +162,6 @@
     </ng-template>
   </table>
   
-  
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 </body>
 </html>
